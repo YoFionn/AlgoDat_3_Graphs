@@ -2,19 +2,19 @@
 #include <bits/stdc++.h> 
 #include "GraphTemplate.hpp"
 //adds node to graph
-Node Graph::addNode(Node node, std::iterator<int> pos){
+Node Graph::addNode(Node node, std::iterator<int> pos){	//insert a Node to the graph at the positition given by iterator
 	nodes.insert(pos, node);
 }
 //removes node from Graph
-Node Graph::remove(std::iterator<int> pos){
+Node Graph::remove(std::iterator<int> pos){				//erease the Node at the position given by the iterator
 	nodes.erase(pos);
 }
 //priority queue needed in prim algorithm 
 //works as min heap
-std::vector<Node> priorityQueue(std::vector<Node> nodeVec){
+std::vector<Node> priorityQueue(std::vector<Node> nodeVec){		//the primary tool gives us a sortet primary Queue back
 	std::vector<Node> tmp;
-    std::priority_queue<Node> nodeQueue;
-    for(int i=0; i<nodeVec.size(); i++){
+    std::priority_queue<Node> nodeQueue;						//we using the std:: priorityqueue and convert it to a vector
+    for(int i=0; i<nodeVec.size(); i++){				
         nodeQueue.push(nodeVec[i]);
     }
 	while (!nodeQueue.empty()){
@@ -25,8 +25,8 @@ std::vector<Node> priorityQueue(std::vector<Node> nodeVec){
 	
 	return tmp;
 }
-//function to heapify tree(needed for extract)
-void MinHeap::heapify(Node root, std::vector<Node> vecci){
+//function to heapify tree(needed for extract)	
+void MinHeap::heapify(Node root, std::vector<Node> vecci){	
 	Node max = root;
 	Node left = 2*root+1;
 	Node right = 2*root+2;
@@ -58,7 +58,8 @@ Node Minheap::extractMin(std::vector<Node> prioQueue){
 	return min;
 }
 
-void Graph::prim() {
+//gives back the the minmal spanning Tree
+void Graph::prim() {											
     for (int i = 0; i < nodes.size(); i++) {
         nodes[i].key = 2147483647;
         nodes[i].parent = NULL;
@@ -107,7 +108,7 @@ bool Graph::BellmanFord(Node source){
 	return true
 }
 
-Node::Node():
+Node::Node():							//Node construktors
     label{},
     adjacentNodes{},
     parent{ nullptr },
@@ -167,11 +168,11 @@ int main(int argc, char* argv[])
 	Node node3("d",map<node,2>,node,2);
 	Node node4("e",map<node1,6>,node1,2);
 	//adding nodes in graph
-	graph.addNode(node);
-	graph.addNode(node1);
-	graph.addNode(node2);
-	graph.addNode(node3);
-	graph.addNode(node4);
+	graph.addNode(node, 1);
+	graph.addNode(node1,1);
+	graph.addNode(node2,1);
+	graph.addNode(node3,1);
+	graph.addNode(node4,1);
 	//calling prim
 	graph.prim();
 	//printing graph
@@ -186,11 +187,11 @@ int main(int argc, char* argv[])
 	Node node8("i",map<node,5>,node,1);
 	Node node9("j",map<node1,7>,node1,7);
 	//adding nodes in graph
-	graph.addNode(node5);
-	graph.addNode(node6);
-	graph.addNode(node7);
-	graph.addNode(node8);
-	graph.addNode(node9);
+	graph.addNode(node5,1);
+	graph.addNode(node6,1);
+	graph.addNode(node7,1);
+	graph.addNode(node8,1);
+	graph.addNode(node9,1);
 	//calling prim
 	graph1.prim();
 	//printing graph
