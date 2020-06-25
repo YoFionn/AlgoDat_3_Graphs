@@ -1,67 +1,44 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <bits/stdc++.h> 
 
 // YOU CAN USE ONLY THE VECTORS, STRINGS AND MAPS FOR THIS ASSIGNMENT!
 
 class Graph {
 private:
     std::vector<Node> nodes;
-    MinHeap *minPriorityQueue;
     bool isDirected;
 
 public:
-    Graph(/* args */);
+    Graph();
     ~Graph();
 
-    // TODO: implement additional constructors
-    // TODO: implement method for adding a node
-    // TODO: implement method for removing a node
-    // TODO: implement Prim
-    // TODO: implement Bellman-Ford
-    // TODO: implement printGraph function that generates a file written using the dot format
+    Node addNode(Node node, std::iterator<int> pos);
+    Node remove(std::iterator<int> pos);
+    void prim();
+    void BellmanFord(int source);
+ 
 };
 
-class Node {
-private:
-    /* data */
+struct Node {
     std::string label;
     std::map<Node, int> adjacentNodes; // the int is for the weight od the egde
     Node *parent;
-    int distance; // aka key
+    int key; // aka key
 
-public:
-    Node(/* args */);
-    ~Node();
+    void addConnection(Node const& new_node);
+    void remove_connection(Node node);
+    void set_key(int new_key);
+    void set_parent(Node* new_parent);
+};
     
-    // TODO: implement additional constructors
-    // TODO: implement method for adding a connection
-    // TODO: implement method for removing a connection
-    // TODO: implement methods for manipulating the parent and distance
-};
+struct MinHeap{
+    Node* left{};
+    Node* right{};
+    Node* parent{};
 
-class MinHeap {
-private:
-    MinHeapNode* root;
-
-public:
-    MinHeap(/* args */);
-    ~MinHeap();
-    // TODO: implement method for restructuring the min-priority Queue
-    // TODO: implement method for extracting the smaller element from the min-priority Queue
-};
-
-class MinHeapNode {
-private:
-    /* data */
-    Node* node;
-    MinHeapNode* parent;
-    MinHeapNode* left;
-    MinHeapNode* right;
-
-public:
-    MinHeapNode(/* args */);
-    ~MinHeapNode();
-
-    // TODO: implement additional constructors
+    std::vector<Node> priorityQueue(std::vector<Node> nodeVec);
+    void heapify(Node root, Node n, std::vector<Node>);
+    Node extractMin(std::vector<Node> prioQueue);
 };
