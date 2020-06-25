@@ -17,7 +17,7 @@ public:
     Node addNode(Node node, std::iterator<int> pos);
     Node remove(std::iterator<int> pos);
     void prim();
-    void BellmanFord(int source);
+    bool BellmanFord(int source);
 };
 
 struct Node {
@@ -25,6 +25,8 @@ struct Node {
     std::map<Node, int> adjacentNodes; // the int is for the weight of the egde
     Node *parent;
     int key;
+
+    Node(label, adjacentNodes, parent, key);
 
     void addConnection(Node const& new_node);
     void remove_connection(Node node);
@@ -41,3 +43,5 @@ struct MinHeap{
     void heapify(Node root, Node n, std::vector<Node>);
     Node extractMin(std::vector<Node> prioQueue);
 };
+
+void printMST(Graph graph);

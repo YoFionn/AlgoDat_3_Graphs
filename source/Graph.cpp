@@ -76,19 +76,30 @@ void Graph::prim() {
 }
 
 bool Graph::BellmanFord(Node source){
+	//for every v of V
     for(int i = 0; i<nodes.size(); i++ ){
+		//distance(v) = infinite
         nodes[i].key = 2147483640;
+		//no parent
         nodes[i].parent = NULL;
     }
 	source.key = NULL;
+	//repeat n-1 times
 	for(int i=1; i=nodes.size()-1; i++){
+		//for every (u,v) of E
 		for(auto it= nodes[i].adjacentNodes.begin();it!=nodes[i].adjacentNodes.end();){
+			//if distanve of u + weight of (u,v) < distance of v
 			if((nodes[i].key + nodes[i].adjacentNodes) < nodes[i].adjacentNodes.key){
+				//distance of v = distance of u + weight of (u,v)
 				nodes[i].adjacentNodes.key = nodes[i].key + nodes[i].adjacentNodes;
+				//parent of v = u
 				nodes[i].parent = i;
 			}
 		}
+	}	
+	//for every (u,v) aus E
 	for(auto it= nodes[i].adjacentNodes.begin();it!=nodes[i].adjacentNodes.end();){
+		//if distanve of u + weight of (u,v) < distance of v
 		if((nodes[i].key + nodes[i].adjacentNodes)<nodes[i].adjacentNodes.key){
 			return false
 		}
@@ -102,11 +113,17 @@ Node::Node():
     parent{ nullptr },
     key{}{}
 
-Node::Node(Node const& copy_node) :
+Node::Node(Node const& copy_node):
     label{copy_node.label},
     adjacentNodes{copy_node.adjacentNodes},
     parent{copy_node.parent},
     key{copy_node.key}{}
+
+Node::Node(label, adjacentNodes, parent, key):
+	label{label},
+	adjacentNodes{adjacentNodes},
+	partent{parent},
+	key{key}{}
 
 Node::~Node(){}
 
@@ -123,7 +140,63 @@ void Node::set_parent(Node* new_parent) {
     parent = new_parent;
 }
 
+std::string storrage;   //saves the output, must be cleard after using the printTree() funktion
+void printTree(Graph graph){
+	//iterating through graph nodes
+	for(nodes::iterator it == nodes.begin();it != nodes.end(); ++i){
+		std::cout<<it<<" -> ";
+		//itorating the neighbour
+		for(adjacentNodes::iterator i == adjacentNodes.begin(); i != adjacentNodes.end(); ++i){
+			std::cout<<i;
+			//highlighting the shortest path
+			if(BellmanFord(i)){
+				std::cout<<"[label="0.4",color=red,penwidth=3.0]";
+			}
+			std::cout<<std::endl;
+		}
+	}
+}
+
 int main(int argc, char* argv[])
-{
+{	//first graph
+	Graph graph;
+	//creating nodes
+	Node node("a",map<>,NULL,2);
+	Node node1("b",map<node,3>,node,2);
+	Node node2("c",map<node,4>,node,2);
+	Node node3("d",map<node,2>,node,2);
+	Node node4("e",map<node1,6>,node1,2);
+	//adding nodes in graph
+	graph.addNode(node);
+	graph.addNode(node1);
+	graph.addNode(node2);
+	graph.addNode(node3);
+	graph.addNode(node4);
+	//calling prim
+	graph.prim();
+	//printing graph
+	printMST(graph);
+
+	//second graph
+	Graph graph1;
+	//creating nodes
+	Node node5("f",map<>,NULL,2);
+	Node node6("g",map<node,1>,node,2);
+	Node node7("h",map<node,3>,node,4);
+	Node node8("i",map<node,5>,node,1);
+	Node node9("j",map<node1,7>,node1,7);
+	//adding nodes in graph
+	graph.addNode(node5);
+	graph.addNode(node6);
+	graph.addNode(node7);
+	graph.addNode(node8);
+	graph.addNode(node9);
+	//calling prim
+	graph1.prim();
+	//printing graph
+	printMST(graph1);
+
 	return 0;
+
+	//sorry francesco...we were really struggeling :( 
 }
